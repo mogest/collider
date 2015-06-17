@@ -26,10 +26,10 @@ module Collider
 end
 
 SimpleGoogleAuth.configure do |config|
-  config.client_id = "the client ID as supplied by Google in step 2"
-  config.client_secret = "the client secret as supplied by Google in step 2"
+  config.client_id = Rails.application.secrets['google_client_id']
+  config.client_secret = Rails.application.secrets["google_secret"]
   config.redirect_uri = "http://localhost:3000/google-callback"
-  config.authenticate = lambda do |data|
-    data.email == "your.email@example.com" || data.email.ends_with?("@example.net")
+  config.authenticate = -> (data)
+    true
   end
 end
