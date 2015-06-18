@@ -4,5 +4,5 @@ class Element < ActiveRecord::Base
   has_many :element_fields, dependent: :destroy
   has_many :fields, through: :element_fields
 
-  validates :account, presence: true, uniqueness: {scope: :account_id}
+  #validates :account, presence: true, uniqueness: {scope: :account_id}
 end
