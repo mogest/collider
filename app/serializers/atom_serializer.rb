@@ -23,13 +23,17 @@ class AtomSerializer
   end
 
   def property_attributes
-    atom.properties.live.preload(:field).map do |property|
+    properties = atom.properties.live.index_by(&:field_id)
+
+    atom.element.fields.map do |field|
+      property = properties[field.id]
+
       {
-        field_id: property.field_id,
-        field_name: property.field.name,
-        field_type: property.field.field_type,
-        value: property.value,
-        created_at: property.created_at
+        field_id: field.id,
+        field_name: field.name,
+        field_type: field.field_type,
+        value: property.try!(:value),
+        value_set_at: property.try!(:created_at)
       }
     end
   end
