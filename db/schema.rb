@@ -11,23 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617234114) do
+ActiveRecord::Schema.define(version: 20150618000344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "accounts", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "atoms", force: :cascade do |t|
     t.integer  "account_id",         null: false
-    t.integer  "number",             null: false
-    t.integer  "parent_atom_id"
     t.integer  "element_id",         null: false
+    t.integer  "parent_atom_id"
+    t.integer  "number",             null: false
     t.integer  "created_by_user_id", null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
 
   add_index "atoms", ["account_id", "number"], name: "index_atoms_on_account_id_and_number", unique: true, using: :btree
-  add_index "atoms", ["account_id"], name: "index_atoms_on_account_id", using: :btree
+  add_index "atoms", ["element_id"], name: "index_atoms_on_element_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "atom_id",    null: false
@@ -96,6 +102,7 @@ ActiveRecord::Schema.define(version: 20150617234114) do
     t.boolean  "admin",          default: false, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "account_id",                     null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
