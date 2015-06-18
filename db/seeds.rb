@@ -7,13 +7,13 @@ end
 
 a = Account.create!(name: "Powershop Collider")
 
-user = a.users.create!(email: "roger.nesbitt@powershop.co.nz")
+user = a.users.create!(name: "Roger", preferred_name: "Roger", email: "roger.nesbitt@powershop.co.nz")
 
 elements = %w(Epic Story Deliverable Task Issue).map do |name|
   a.elements.create!(name: name)
 end
 
-epic, story, dlvr, task, issue = elements 
+epic, story, dlvr, task, issue = elements
 
 title = a.fields.create!(name: "Title", field_type: "long", data_type: "text")
 description = a.fields.create!(name: "Description", field_type: "textarea", data_type: "text")
