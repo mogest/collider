@@ -2,6 +2,12 @@ var React = require('react');
 var Link = require('react-router-component').Link;
 var Loading = require('./loading.js');
 
+var AtomStore = require('../store/atom_store.js')
+
+var getAtomState = function(number) {
+  return AtomStore.getAtom(number);
+}
+
 var AtomPage = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
@@ -9,22 +15,24 @@ var AtomPage = React.createClass({
     is_loading: React.PropTypes.bool
   },
 
+  _onChange: function() {
+    this.setState(getInitialState());
+  },
+
   getInitialState: function() {
-    return {
-      is_loading: true
-    };
+    var atomState = getAtomState(this.props.number);
+    console.log(atomState)
+    atomState.is_loading = !(atomState);
+
+    return atomState;
   },
 
   componentDidMount: function() {
-    $.get("http://localhost:3000/", function (result) {
-      if (this.isMounted()) {
-        this.setState({
-          title: "This is supposed to be dynamic but it's not yet",
-          number: this.props.number,      // props is different from state!
-          is_loading: false
-        });
-      }
-    }.bind(this));
+    AtomStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    AtomStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
@@ -36,7 +44,7 @@ var AtomPage = React.createClass({
 
     return (
       <div>
-        <h2>I am an atom! {this.state.number} ({this.state.title})</h2>
+        <h2>{this.state.element.toUpperCase()} I am an atom! {this.state.number} ({this.state.properties.Title.value})</h2>
       </div>
     );
   }
