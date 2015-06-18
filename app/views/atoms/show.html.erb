@@ -1,6 +1,6 @@
 <h1>ATOM <%= @atom.number %></h1>
 
 <% @atom.properties.each do |property| %>
-  <li><%= property.field.name %>: <%= property.value %></li>
+  <li><%= property.field_name %>: <%= property.value %></li>
 <% end %>
 

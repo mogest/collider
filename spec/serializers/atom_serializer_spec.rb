@@ -6,14 +6,13 @@ RSpec.describe AtomSerializer do
 
   it "serializes the atom and its live properties" do
     attribs = JSON.parse(serializer.to_json)
-    properties = attribs["atom"].delete("properties")
+    properties = attribs.delete("properties")
 
     expect(attribs).to eq(
-      "atom" => {
-        "element"=>"Story",
-        "parent_atom_number"=>nil,
-        "created_at"=>"2015-04-01T00:11:22.000Z"
-      }
+      "number"=>1,
+      "element"=>"Story",
+      "parent_atom_number"=>nil,
+      "created_at"=>"2015-04-01T00:11:22.000Z"
     )
 
     expect(properties).to match_array [

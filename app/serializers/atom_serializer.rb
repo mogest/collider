@@ -9,18 +9,21 @@ class AtomSerializer
     attributes.to_json
   end
 
-  protected
+  def to_struct
+    Structy.new(attributes)
+  end
 
   def attributes
     {
-      atom: {
-        element: atom.element.name,
-        parent_atom_number: atom.parent_atom.try!(:number),
-        properties: property_attributes,
-        created_at: atom.created_at
-      }
+      number: atom.number,
+      element: atom.element.name,
+      parent_atom_number: atom.parent_atom.try!(:number),
+      properties: property_attributes,
+      created_at: atom.created_at
     }
   end
+
+  protected
 
   def property_attributes
     properties = atom.properties.live.index_by(&:field_id)

@@ -5,18 +5,21 @@ class AtomsController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json do
-        render json: AtomsSerializer.new(@atoms).to_json
+        render json: {atoms: AtomsSerializer.new(@atoms).attributes}
       end
     end
   end
 
   def show
-    @atom = current_account.atoms.find_by!(number: params[:id])
+    atom = current_account.atoms.find_by!(number: params[:id])
+    serializer = AtomSerializer.new(atom)
 
     respond_to do |format|
-      format.html {}
+      format.html do
+        @atom = serializer.to_struct
+      end
       format.json do
-        render json: AtomSerializer.new(@atom).to_json
+        render json: {atom: serializer.attributes}
       end
     end
   end
