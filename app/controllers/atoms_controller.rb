@@ -11,12 +11,12 @@ class AtomsController < ApplicationController
   end
 
   def show
-    atom = current_account.atoms.find_by!(number: params[:id])
+    @atom = current_account.atoms.find_by!(number: params[:id])
 
     respond_to do |format|
       format.html {}
       format.json do
-        render json: AtomSerializer.new(atom).to_json
+        render json: AtomSerializer.new(@atom).to_json
       end
     end
   end

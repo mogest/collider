@@ -12,6 +12,10 @@ class Atom < ActiveRecord::Base
   validate :element_belongs_to_account
   validate :parent_atom_belongs_to_account
 
+  def to_param
+    number.to_s
+  end
+
   protected
 
   def element_belongs_to_account
