@@ -9,6 +9,7 @@ var Element = React.createClass({
       <div>
         <div>Name: {this.props.name}</div>
         <div>Created At: {this.props.created_at}</div>
+        <Element name="hello" />
       </div>
     );
   }
