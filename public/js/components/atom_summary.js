@@ -1,3 +1,4 @@
+var React = require('react');
 var AtomSummary = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
@@ -13,3 +14,5 @@ var AtomSummary = React.createClass({
     );
   }
 });
+
+module.exports = AtomSummary;

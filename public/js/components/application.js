@@ -1,3 +1,6 @@
+var React = require('react');
+var AtomList = require('./atom_list.js');
+
 var Application = React.createClass({
   propTypes: {
     name: React.PropTypes.string,
@@ -14,3 +17,5 @@ var Application = React.createClass({
     );
   }
 });
+
+module.exports = Application;

@@ -1,3 +1,5 @@
+var React = require('react');
+var AtomSummary = require('./atom_summary');
 var AtomList = React.createClass({
   propTypes: {
     atoms: React.PropTypes.array
@@ -15,3 +17,5 @@ var AtomList = React.createClass({
     );
   }
 });
+
+module.exports = AtomList;
