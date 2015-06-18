@@ -1,10 +1,11 @@
 class AtomsController < ApplicationController
   def index
-    atoms = current_account.atoms.order("created_at desc")
+    @atoms = current_account.atoms.preload(:properties => :field).order("created_at desc")
+
     respond_to do |format|
       format.html {}
       format.json do
-        render json: AtomsSerializer.new(atoms).to_json
+        render json: AtomsSerializer.new(@atoms).to_json
       end
     end
   end

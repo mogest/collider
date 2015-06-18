@@ -12,12 +12,11 @@ RSpec.describe AtomSerializer do
         "parent_atom_number"=>nil,
         "properties" => [
           {
-            fields(:title).to_param => {
-              "field_name"=>"Title",
-              "field_type"=>"long",
-              "value"=>"Write some tests for Collider",
-              "created_at"=>"2015-04-02T00:22:44.000Z"
-            }
+            "field_id"=>fields(:title).id,
+            "field_name"=>"Title",
+            "field_type"=>"long",
+            "value"=>"Write some tests for Collider",
+            "created_at"=>"2015-04-02T00:22:44.000Z"
           }
         ],
         "created_at"=>"2015-04-01T00:11:22.000Z"

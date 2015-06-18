@@ -1,5 +1,11 @@
 <h1>ATOMS</h1>
 
+<% @atoms.each do |atom| %>
+  <li>
+    #<%= atom.number %> <%= link_to atom.properties.structify.title.value, atom %>
+  </li>
+<% end %>
+
 <p>
   <%= button_to "Create new Atom", atoms_path, method: :post %>
 </p>
