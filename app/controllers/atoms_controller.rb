@@ -24,6 +24,13 @@ class AtomsController < ApplicationController
     end
   end
 
+  def new
+    element = current_account.elements.find(params[:element_id])
+    serializer = AtomSerializer.new(current_account.atoms.new(element: element))
+
+    render json: {atom: serializer.attributes}
+  end
+
   def create
     populate(nil)
   end
