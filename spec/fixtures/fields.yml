@@ -1,0 +1,17 @@
+title:
+  account: test
+  name: Title
+  field_type: long
+  data_type: text
+
+priority:
+  account: test
+  name: Priority
+  field_type: short
+  data_type: integer
+
+description:
+  account: test
+  name: Description
+  field_type: textarea
+  data_type: text

@@ -1,0 +1,7 @@
+<% %w(story epic).each do |element| %>
+<% %w(title priority description).each do |field| %>
+<%= element %>_<%= field %>:
+  element: <%= element %>
+  field: <%= field %>
+<% end %>
+<% end %>

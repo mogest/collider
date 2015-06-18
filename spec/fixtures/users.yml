@@ -1,0 +1,4 @@
+test:
+  account: test
+  email: "test@example.com"
+  token: "testexample"

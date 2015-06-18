@@ -8,7 +8,7 @@ class CreateAtoms < ActiveRecord::Migration
       t.integer :number, null: false
       t.index [:account_id, :number], unique: true
 
-      t.integer :created_by_user_id, null: false
+      t.integer :created_by_user_id
 
       t.timestamps null: false
     end

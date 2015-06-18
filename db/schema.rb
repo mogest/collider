@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618000344) do
+ActiveRecord::Schema.define(version: 20150618004939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,21 @@ ActiveRecord::Schema.define(version: 20150618000344) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "atom_numbers", force: :cascade do |t|
+    t.integer  "account_id",              null: false
+    t.integer  "next_number", default: 1, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "atom_numbers", ["account_id"], name: "index_atom_numbers_on_account_id", unique: true, using: :btree
+
   create_table "atoms", force: :cascade do |t|
     t.integer  "account_id",         null: false
     t.integer  "element_id",         null: false
     t.integer  "parent_atom_id"
     t.integer  "number",             null: false
-    t.integer  "created_by_user_id", null: false
+    t.integer  "created_by_user_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
@@ -87,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150618000344) do
     t.datetime "obsolete_at"
   end
 
-  add_index "properties", ["atom_id", "field_id"], name: "index_properties_on_atom_id_and_field_id", unique: true, using: :btree
+  add_index "properties", ["atom_id"], name: "index_properties_on_atom_id", using: :btree
   add_index "properties", ["created_at"], name: "index_properties_on_created_at", using: :btree
   add_index "properties", ["created_by_user_id"], name: "index_properties_on_created_by_user_id", using: :btree
   add_index "properties", ["field_id"], name: "index_properties_on_field_id", using: :btree
@@ -97,8 +106,8 @@ ActiveRecord::Schema.define(version: 20150618000344) do
   create_table "users", force: :cascade do |t|
     t.string   "email",                          null: false
     t.string   "token",                          null: false
-    t.string   "name",                           null: false
-    t.string   "preferred_name",                 null: false
+    t.string   "name"
+    t.string   "preferred_name"
     t.boolean  "admin",          default: false, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false

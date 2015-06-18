@@ -6,8 +6,8 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string :token, null: false
 
-      t.string :name, null: false
-      t.string :preferred_name, null: false
+      t.string :name
+      t.string :preferred_name
 
       t.boolean :admin, null: false, default: false
 

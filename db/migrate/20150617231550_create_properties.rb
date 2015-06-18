@@ -1,10 +1,8 @@
 class CreateProperties < ActiveRecord::Migration
   def change
     create_table :properties do |t|
-      t.integer :atom_id, null: false
-      t.integer :field_id, null: false
-      t.index [:atom_id, :field_id], unique: true
-      t.index :field_id
+      t.integer :atom_id, null: false, index: true
+      t.integer :field_id, null: false, index: true
 
       t.text :text_value
       t.integer :integer_value
