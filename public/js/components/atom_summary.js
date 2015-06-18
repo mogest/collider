@@ -1,4 +1,6 @@
 var React = require('react');
+var Link = require('react-router-component').Link;
+
 var AtomSummary = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
@@ -8,8 +10,10 @@ var AtomSummary = React.createClass({
   render: function() {
     return (
       <div>
+      <Link href={"/atom/" + this.props.number}>
         <div>Number: {this.props.number}</div>
         <div>Title: {this.props.title}</div>
+      </Link>
       </div>
     );
   }
