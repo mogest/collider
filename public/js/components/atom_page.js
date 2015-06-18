@@ -4,6 +4,8 @@ var Loading = require('./loading.js');
 
 var AtomStore = require('../store/atom_store.js')
 
+var _ = require('underscore');
+
 var getAtomState = function(number) {
   return AtomStore.getAtom(number);
 }
@@ -42,9 +44,16 @@ var AtomPage = React.createClass({
       );
     }
 
+    var propertyList = _.map(this.state.properties, function(property){
+      return <li>{property.field_name}: {property.value}</li>
+    });
+
     return (
       <div>
-        <h2>{this.state.element.toUpperCase()} I am an atom! {this.state.number} ({this.state.properties.Title.value})</h2>
+        <h2>{this.state.element.toUpperCase()} ({this.state.number}) {this.state.propertyObject().Title.value}</h2>
+        <ul>
+          { propertyList }
+        </ul>
       </div>
     );
   }
