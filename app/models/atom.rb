@@ -5,6 +5,7 @@ class Atom < ActiveRecord::Base
   belongs_to :created_by_user, class_name: "User"
   has_many :properties, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :children, class_name: "Atom", foreign_key: "parent_atom_id"
 
   validates :element_id, presence: true
   validates :number, presence: true, uniqueness: {scope: :account_id}

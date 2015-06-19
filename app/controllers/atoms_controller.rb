@@ -11,6 +11,17 @@ class AtomsController < ApplicationController
     end
   end
 
+  def children
+    atom = current_account.atoms.find_by!(number: params[:id])
+    @atoms = atom.children.preload(:properties => :field).order("created_at desc")
+
+    respond_to do |format|
+      format.json do
+        render json: {atoms: AtomsSerializer.new(@atoms).attributes}
+      end
+    end
+  end
+
   def show
     atom = current_account.atoms.find_by!(number: params[:id])
     serializer = AtomSerializer.new(atom)
