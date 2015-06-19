@@ -18,15 +18,18 @@ var AtomPage = React.createClass({
   },
 
   _onChange: function() {
-    this.setState(getInitialState());
+    this.setState(this.getInitialState());
   },
 
   getInitialState: function() {
     var atomState = getAtomState(this.props.number);
-    console.log(atomState)
-    atomState.is_loading = !(atomState);
 
-    return atomState;
+    if (atomState) {
+      atomState.is_loading = false
+      return atomState;
+    } else {
+      return {is_loading: true }
+    }
   },
 
   componentDidMount: function() {
@@ -42,6 +45,14 @@ var AtomPage = React.createClass({
       return (
         <Loading />
       );
+    }
+
+    if (!this.state.valid) {
+      return (
+        <div>
+          <h2> Couldn't find number {this.state.number} </h2>
+        </div>
+      )
     }
 
     var propertyList = _.map(this.state.properties, function(property){
