@@ -48,15 +48,36 @@ class PopulateAtom
   def construct_atom_attribs
     output = params.slice("element_id")
 
-    if number = params["parent_atom_number"]
-      if parent_atom = account.atoms.where(number: number).first
-        output["parent_atom_id"] = parent_atom.id
-      else
-        output["parent_atom_id"] = 0 # will create a validation error
-      end
+    if params.member?("parent_atom_number")
+      output["parent_atom_id"] = calculate_parent_atom_id(params["parent_atom_number"])
     end
 
     output
+  end
+
+  def calculate_parent_atom_id(parent_atom_number)
+    return if parent_atom_number.blank?
+
+    parent_atom = account.atoms.find_by(number: parent_atom_number)
+
+    # If unchanged, there's no point doing the loop checks
+    return parent_atom.id if atom.parent_atom_id == parent_atom.id
+
+    if parent_atom && atom.persisted? && detect_circular_loop(parent_atom, atom)
+      0 # will create a validation error
+    elsif parent_atom
+      parent_atom.id
+    else
+      0 # will create a validation error
+    end
+  end
+
+  def detect_circular_loop(ancestor, forbidden_target)
+    while ancestor
+      return true if ancestor.number == forbidden_target.number
+      ancestor = ancestor.parent_atom
+    end
+    false
   end
 
   def populate_properties
