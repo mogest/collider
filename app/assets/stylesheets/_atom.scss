@@ -20,4 +20,18 @@
       width: 80%;
     }
   }
+
+  .title {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: thin solid #ccc;
+
+    .parent {
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
 }
