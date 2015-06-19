@@ -19,6 +19,7 @@ class AtomSerializer
       element: atom.element.name,
       parent_atom_number: atom.parent_atom.try!(:number),
       properties: property_attributes,
+      created_by: UserSerializer.new(atom.created_by_user).send(:attributes),
       created_at: atom.created_at
     }
   end

@@ -61,7 +61,7 @@ var AtomPage = React.createClass({
     if (!this.state.valid) {
       return (
         <div>
-          <h2> Couldn't find number {this.state.number} </h2>
+          <h2> Could not find number {this.state.number} </h2>
         </div>
       )
     }
@@ -76,6 +76,13 @@ var AtomPage = React.createClass({
         <h2>{this.state.element.toUpperCase()} ({this.state.number}) {this.state.propertyObject().Title.value}</h2>
         <ul className="property-list">
           { propertyList }
+
+          <li className="property-created_by">
+            <span className="property-name">Created by</span>
+            <span className="property-value">
+              <Link className="user" href={"/user/" + this.state.created_by.email}>{this.state.created_by.preferred_name}</Link>
+            </span>
+          </li>
         </ul>
       </div>
     );
