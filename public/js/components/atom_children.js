@@ -59,7 +59,7 @@ var AtomChildren = React.createClass({
 
     var children_list = _.map(this.state.children, function(child) {
       return (
-        <li>
+        <li key={child.number}>
           <AtomLink atom={child} />
         </li>
       );
