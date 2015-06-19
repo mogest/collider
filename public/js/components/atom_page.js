@@ -1,8 +1,9 @@
 var React = require('react');
 var Link = require('react-router-component').Link;
 var Loading = require('./loading.js');
+var AtomParent = require('./atom_parent.js');
 
-var AtomStore = require('../store/atom_store.js')
+var AtomStore = require('../store/atom_store.js');
 
 var _ = require('underscore');
 
@@ -71,9 +72,17 @@ var AtomPage = React.createClass({
       return <ListItemWrapper key={property.field_name} class_name={class_name} field_name={property.field_name} value={property.value} />;
     });
 
+    var parent = this.state.parent_atom_number ? (
+      <AtomParent number={this.state.parent_atom_number} />
+    ) : "";
+
     return (
       <div className="atom">
-        <h2>{this.state.element.toUpperCase()} ({this.state.number}) {this.state.propertyObject().Title.value}</h2>
+        <div className="title">
+          {parent}
+          <h2>{this.state.element.toUpperCase()} ({this.state.number}) {this.state.propertyObject().Title.value}</h2>
+        </div>
+
         <ul className="property-list">
           { propertyList }
 
