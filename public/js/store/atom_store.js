@@ -1,11 +1,13 @@
 var AppDispatcher = require('../dispatcher/app_dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var ElementActions = require('../actions/element_actions.js');
 var _ = require('underscore');
 
 var Atom = require('./atom.js');
 
 var _atoms = [];
+var _elements = [];
 var CHANGE = 'atoms_changed'
 
 var AtomStore = assign({}, EventEmitter.prototype, {
@@ -24,8 +26,20 @@ var AtomStore = assign({}, EventEmitter.prototype, {
     return result;
   },
 
+  getElements: function() {
+    if (_elements.length == 0) {
+      ElementActions.getElements();
+    }
+
+    return _elements;
+  },
+
   addAtom: function(data) {
     _atoms.push(new Atom(data));
+  },
+
+  setElements: function(data) {
+    _elements = data;
   },
 
   emitChange: function() {
@@ -51,6 +65,11 @@ var AtomStore = assign({}, EventEmitter.prototype, {
 
       case 'addAtom':
         AtomStore.addAtom(action.data.atom);
+        AtomStore.emitChange();
+        break;
+
+      case 'addElements':
+        AtomStore.setElements(action.data.elements);
         AtomStore.emitChange();
         break;
     }

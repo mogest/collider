@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Application = require('./components/application.js');
+var Index = require('./components/index.js');
 var AtomPage = require('./components/atom_page.js');
 var AtomActions = require('./actions/atom_actions.js');
 var Header = require('./components/header.js');
@@ -17,7 +17,8 @@ var App = React.createClass({
       <div className="root">
         <Header />
         <Locations>
-          <Location path="/" handler={Application} />
+          <Location path="/" handler={Index} />
+          <Location path="/atom/new/:elementID" handler={AtomPage} />
           <Location path="/atom/:number" handler={AtomPage} />
         </Locations>
         <Footer />

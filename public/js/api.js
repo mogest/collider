@@ -16,6 +16,14 @@ var API = {
     });
   },
 
+  getElements: function() {
+    return new Promise(function(resolve, reject) {
+      $.getJSON('/elements').
+        success(function(data) { resolve(data) }).
+        fail(reject);
+    });
+  },
+
 }
 
 module.exports = API;
