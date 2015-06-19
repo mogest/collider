@@ -16,7 +16,7 @@ var AtomSummary = React.createClass({
           <Link href={"/atom/" + this.props.atom.number}>{this.props.atom.propertyObject().Title.value}</Link>
         </td>
         <td>
-          <Link href={"/user/" + this.props.atom.created_by.email}>{this.props.atom.created_by.preferred_name}</Link>
+          <Link className="user" href={"/user/" + this.props.atom.created_by.email}>{this.props.atom.created_by.preferred_name}</Link>
         </td>
       </tr>
     );
