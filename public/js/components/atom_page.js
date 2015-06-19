@@ -10,6 +10,17 @@ var getAtomState = function(number) {
   return AtomStore.getAtom(number);
 }
 
+var ListItemWrapper = React.createClass({
+  render: function() {
+    return (
+      <li className={this.props.class_name}>
+        <span className="property-name">{this.props.field_name}</span>
+        <span className="property-value">{this.props.value}</span>
+      </li>
+    );
+  }
+});
+
 var AtomPage = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
@@ -57,12 +68,7 @@ var AtomPage = React.createClass({
 
     var propertyList = _.map(this.state.properties, function(property){
       var class_name = "property-" + property.field_name;
-      return (
-        <li className={class_name}>
-          <span className="property-name">{property.field_name}</span>
-          <span className="property-value">{property.value}</span>
-        </li>
-      );
+      return <ListItemWrapper key={property.field_name} class_name={class_name} field_name={property.field_name} value={property.value} />;
     });
 
     return (
