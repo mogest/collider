@@ -6,19 +6,22 @@ var _ = require('underscore');
 var Atom = require('./atom.js');
 
 var _atoms = [];
-
 var CHANGE = 'atoms_changed'
 
 var AtomStore = assign({}, EventEmitter.prototype, {
 
   getAll: function() {
-    return _atoms;
+    return _.filter(_atoms, function(atom) { return atom.valid });
   },
 
   getAtom: function(number) {
     var result = _.findWhere(_atoms, {number: Number.parseInt(number)});
-    console.log(result)
-    return result || {};
+
+    if (!result) {
+      AtomActions.getAtom(number);
+    }
+
+    return result;
   },
 
   addAtom: function(data) {
@@ -38,14 +41,16 @@ var AtomStore = assign({}, EventEmitter.prototype, {
   },
 
   dispatcherIndex: AppDispatcher.register(function(action) {
-
-    console.log(action)
-
     switch(action.actionType) {
       case 'addAtoms':
         action.data.atoms.forEach(function(atomData){
           AtomStore.addAtom(atomData);
         });
+        AtomStore.emitChange();
+        break;
+
+      case 'addAtom':
+        AtomStore.addAtom(action.data.atom);
         AtomStore.emitChange();
         break;
     }
