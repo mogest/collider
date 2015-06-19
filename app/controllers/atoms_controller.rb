@@ -1,9 +1,10 @@
 class AtomsController < ApplicationController
+  before_action :render_app_if_html_request
+
   def index
     @atoms = current_account.atoms.preload(:properties => :field).order("created_at desc")
 
     respond_to do |format|
-      format.html {}
       format.json do
         render json: {atoms: AtomsSerializer.new(@atoms).attributes}
       end
@@ -15,9 +16,6 @@ class AtomsController < ApplicationController
     serializer = AtomSerializer.new(atom)
 
     respond_to do |format|
-      format.html do
-        @atom = serializer.to_struct
-      end
       format.json do
         render json: {atom: serializer.attributes}
       end
@@ -59,5 +57,9 @@ class AtomsController < ApplicationController
         end
       end
     end
+  end
+
+  def render_app_if_html_request
+    render file: Rails.root.join("public", "index.html") if request.format == Mime::HTML
   end
 end
