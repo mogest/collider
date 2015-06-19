@@ -31,7 +31,7 @@ var AtomList = React.createClass({
   render: function() {
     var items = this.state.atoms.map(function(result) {
       return (
-        <AtomSummary number={result.number} title={result.propertyObject().Title.value} />
+        <AtomSummary atom={result} />
       );
     });
 
