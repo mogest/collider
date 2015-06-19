@@ -34,4 +34,15 @@
       margin: 0;
     }
   }
+
+  .children-list {
+    clear: both;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: thin solid #ccc;
+
+    h2, h3 {
+      margin: 0;
+    }
+  }
 }

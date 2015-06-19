@@ -26,6 +26,18 @@ var AtomStore = assign({}, EventEmitter.prototype, {
     return result;
   },
 
+  getAtomChildren: function(number) {
+    var result = _.findWhere(_atoms, {number: Number.parseInt(number)});
+
+    if (!result) {
+      AtomActions.getAtom(number);
+    } else if (result.children.length == 0) {
+      AtomActions.getAtomChildren(number);
+    }
+
+    return result;
+  },
+
   getElements: function() {
     if (_elements.length == 0) {
       ElementActions.getElements();
@@ -36,6 +48,11 @@ var AtomStore = assign({}, EventEmitter.prototype, {
 
   addAtom: function(data) {
     _atoms.push(new Atom(data));
+  },
+
+  addAtomChild: function(data) {
+    var result = _.findWhere(_atoms, {number: data.parent_atom_number});
+    result.children.push(new Atom(data));
   },
 
   setElements: function(data) {
@@ -65,6 +82,13 @@ var AtomStore = assign({}, EventEmitter.prototype, {
 
       case 'addAtom':
         AtomStore.addAtom(action.data.atom);
+        AtomStore.emitChange();
+        break;
+
+      case 'addAtomChildren':
+        action.data.atoms.forEach(function(atomData){
+          AtomStore.addAtomChild(atomData);
+        });
         AtomStore.emitChange();
         break;
 

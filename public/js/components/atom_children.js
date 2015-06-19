@@ -1,21 +1,19 @@
 var React = require('react');
 var Link = require('react-router-component').Link;
 var Loading = require('./loading.js');
-var AtomParent = require('./atom_parent.js');
 var AtomLink = require('./atom_link.js');
 
 var AtomStore = require('../store/atom_store.js');
 
 var _ = require('underscore');
 
-var getAtomState = function(number) {
-  return AtomStore.getAtom(number);
+var getAtomChildren = function(number) {
+  return AtomStore.getAtomChildren(number);
 };
 
-var AtomParent = React.createClass({
+var AtomChildren = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
-    title: React.PropTypes.string,
     is_loading: React.PropTypes.bool
   },
 
@@ -24,13 +22,15 @@ var AtomParent = React.createClass({
   },
 
   getInitialState: function() {
-    var atomState = getAtomState(this.props.number);
+    var atomState = getAtomChildren(this.props.number);
 
     if (atomState) {
       atomState.is_loading = false;
       return atomState;
     } else {
-      return {is_loading: true };
+      return {
+        is_loading: true
+      };
     }
   },
 
@@ -57,17 +57,30 @@ var AtomParent = React.createClass({
       )
     }
 
-    var parent = this.state.parent_atom_number ? (
-      <AtomParent number={this.state.parent_atom_number} />
-    ) : "";
+    var children_list = _.map(this.state.children, function(child) {
+      return (
+        <li>
+          <AtomLink atom={child} />
+        </li>
+      );
+    });
+
+    if (this.state.children.length == 0) {
+      children_list = (
+        <i>No children</i>
+      );
+    }
 
     return (
-      <div className="parent">
-        {parent}
-        <AtomLink atom={this.state} />
+      <div className="children-list">
+        <h3>Child atoms</h3>
+
+        <ul>
+         {children_list}
+        </ul>
       </div>
     );
   }
 });
 
-module.exports = AtomParent;
+module.exports = AtomChildren;

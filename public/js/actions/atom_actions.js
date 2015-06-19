@@ -22,6 +22,18 @@ AtomActions = {
     });
   },
 
+  getAtomChildren: function(number) {
+    API.getAtomChildren(number).
+      then(function(data) {
+        AppDispatcher.dispatch({
+          actionType: 'addAtomChildren',
+          data: data
+        });
+    }, function(data) {
+      console.log(data);
+    });
+  },
+
   getAtoms: function() {
     API.getAtoms().
       then(function(data) {

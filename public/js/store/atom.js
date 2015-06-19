@@ -4,6 +4,7 @@ function Atom(data) {
   assign(this, data);
 
   this.valid = !!(data.properties);
+  this.children = [];
 
   if (this.valid) {
     // Invert the properties array and return an object keyed by field_name
@@ -13,7 +14,7 @@ function Atom(data) {
         properties[property.field_name] = property;
       });
       return properties;
-    }
+    };
   }
 
 }

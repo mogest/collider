@@ -2,6 +2,7 @@ var React = require('react');
 var Link = require('react-router-component').Link;
 var Loading = require('./loading.js');
 var AtomParent = require('./atom_parent.js');
+var AtomChildren = require('./atom_children.js');
 
 var AtomStore = require('../store/atom_store.js');
 
@@ -93,6 +94,10 @@ var AtomPage = React.createClass({
             </span>
           </li>
         </ul>
+
+        <div style={{clear: "both"}} />
+
+        <AtomChildren number={this.state.number} />
       </div>
     );
   }
