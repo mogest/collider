@@ -45,13 +45,19 @@ var AtomPage = React.createClass({
     }
 
     var propertyList = _.map(this.state.properties, function(property){
-      return <li>{property.field_name}: {property.value}</li>
+      var class_name = "property-" + property.field_name;
+      return (
+        <li className={class_name}>
+          <span className="property-name">{property.field_name}</span>
+          <span className="property-value">{property.value}</span>
+        </li>
+      );
     });
 
     return (
-      <div>
+      <div className="atom">
         <h2>{this.state.element.toUpperCase()} ({this.state.number}) {this.state.propertyObject().Title.value}</h2>
-        <ul>
+        <ul className="property-list">
           { propertyList }
         </ul>
       </div>

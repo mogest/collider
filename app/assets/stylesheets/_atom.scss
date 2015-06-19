@@ -1,0 +1,23 @@
+.atom {
+  ul.property-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    .property-name {
+      float: left;
+      width: (20% - 2%);
+      font-weight: bold;
+      padding-right: 2%;
+    }
+
+    .property-value {
+      float: left;
+      width: 80%;
+    }
+  }
+}

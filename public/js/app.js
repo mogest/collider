@@ -14,7 +14,7 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div class="root">
+      <div className="root">
         <Header />
         <Locations>
           <Location path="/" handler={Application} />
