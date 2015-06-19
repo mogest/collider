@@ -46,7 +46,17 @@ class PopulateAtom
   end
 
   def construct_atom_attribs
-    params.slice("element_id", "parent_atom_id")
+    output = params.slice("element_id")
+
+    if number = params["parent_atom_number"]
+      if parent_atom = account.atoms.where(number: number).first
+        output["parent_atom_id"] = parent_atom.id
+      else
+        output["parent_atom_id"] = 0 # will create a validation error
+      end
+    end
+
+    output
   end
 
   def populate_properties
