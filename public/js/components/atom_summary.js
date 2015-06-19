@@ -9,12 +9,14 @@ var AtomSummary = React.createClass({
 
   render: function() {
     return (
-      <div>
-      <Link href={"/atom/" + this.props.number}>
-        <div>Number: {this.props.number}</div>
-        <div>Title: {this.props.title}</div>
-      </Link>
-      </div>
+      <tr>
+        <td>
+          <Link href={"/atom/" + this.props.number}>#{this.props.number}</Link>
+        </td>
+        <td>
+          <Link href={"/atom/" + this.props.number}>#{this.props.title}</Link>
+        </td>
+      </tr>
     );
   }
 });

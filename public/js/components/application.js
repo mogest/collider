@@ -10,7 +10,7 @@ var Application = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>{this.props.name || "untitled application"}</h1>
+        <h1>{this.props.name || "Atom list"}</h1>
 
         <AtomList atoms={this.props.atoms} />
       </div>

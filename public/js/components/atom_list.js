@@ -30,13 +30,24 @@ var AtomList = React.createClass({
 
   render: function() {
     var items = this.state.atoms.map(function(result) {
-      return <AtomSummary number={result.number} title={result.propertyObject().Title.value} />
+      return (
+        <AtomSummary number={result.number} title={result.propertyObject().Title.value} />
+      );
     });
 
     return (
-      <ul>
-        {items}
-      </ul>
+      <table className="atom-list">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Created by</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items}
+        </tbody>
+      </table>
     );
   }
 });
